@@ -110,7 +110,7 @@ export type DeepKeyAndValueObject<
   TAllKeys extends AllObjectKeys<T> = AllObjectKeys<T>,
 > = TAllKeys extends any
   ? DeepKeysAndValuesImpl<
-      NonNullable<T[TAllKeys]>,
+      T[TAllKeys] & ({} | undefined),
       ObjectDeepKeyAndValue<TParent, T, TAllKeys>,
       TAcc | ObjectDeepKeyAndValue<TParent, T, TAllKeys>
     >
@@ -138,7 +138,7 @@ export type DeepKeysAndValuesImpl<
   ? TAcc | UnknownDeepKeyAndValue<TParent>
   : unknown extends T // this stops runaway recursion when T is any
     ? T
-    : T extends string | number | boolean | bigint | Date
+    : T extends string | number | boolean | undefined | bigint | Date
       ? TAcc
       : T extends ReadonlyArray<any>
         ? number extends T['length']

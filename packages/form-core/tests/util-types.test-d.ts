@@ -452,6 +452,11 @@ expectTypeOf(0 as never as AnyObjectExample4).toEqualTypeOf<any>()
 type AnyObjectExample5 = DeepValue<ObjectWithAny, 'obj.d'>
 expectTypeOf(0 as never as AnyObjectExample5).toEqualTypeOf<number>()
 
+type UnionUndefinedExample = DeepValue<{ id: string } | { id: undefined }, 'id'>
+expectTypeOf(0 as never as UnionUndefinedExample).toEqualTypeOf<
+  string | undefined
+>()
+
 describe('FieldsMap', () => {
   it('should map to all available types', () => {
     type FormData = {
